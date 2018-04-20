@@ -1,0 +1,14 @@
+{
+    "editor.tabCompletion": false,
+    "extensions.ignoreRecommendations": false,
+    "editor.autoIndent": false,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "workbench.editor.enablePreview": false,
+    "window.zoomLevel": 1,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-w>": false
+    }
+}
