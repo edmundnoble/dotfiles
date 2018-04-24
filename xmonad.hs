@@ -28,9 +28,9 @@ import XMonad.Util.EZConfig
 import XMonad.Actions.Warp
 import Data.Ratio
 
-myTerminal      = "terminology"
+myTerminal      = "alacritty"
 myScreenLock    = "/usr/bin/gnome-screensaver-command -l"
-myChrome        = "/usr/bin/google-chrome"
+myBrowser       = "qutebrowser"
 myBorderWidth   = 1
 myModMask       = mod1Mask
 myWorkspaces    = ["α", "β" ,"γ", "δ", "ε", "ζ", "η", "θ", "ι"]
@@ -40,7 +40,7 @@ myFocusedBorderColor = "cadetblue3"
 myKeymap = \conf -> [ ("M-S-<Return>", spawn $ XMonad.terminal conf)
                 , ("C-S-<Esc>",    spawn $ myScreenLock)
 	        , ("<Print>",      spawn "scrot -e 'mv $f ~/screenshots/'")
-                , ("M-o",          spawn $ myChrome)
+                , ("M-o",          spawn $ myBrowser)
                 , ("M-i",          spawn $ "code")
                 , ("M-C-<Esc>",    spawn $ "xkill")
                 , ("M-<Space>",    sendMessage NextLayout)
@@ -80,9 +80,7 @@ myKeymap = \conf -> [ ("M-S-<Return>", spawn $ XMonad.terminal conf)
                 , ("M-x c",        kill)
                 , ("M-x M-x",      nextScreen)
                 , ("M-u M-x M-x",  swapNextScreen)
-                , ("M-x e",        spawn "emacsclient -c -s emacs")
                 , ("M-x s",        spawn "swiftfox")
-                , ("M-x t",        spawn "tvbrowser")
                 , ("M-x d",        spawn "deluge")
                 , ("M-x <Return>", spawn $ XMonad.terminal conf)
                 , ("M-w",          sendMessage MagnifyMore)
@@ -192,7 +190,7 @@ myManageHook = composeAll
 -- Status bars and logging
 myLogHook h = do
   ewmhDesktopsLogHook
-  dynamicLogWithPP $ oxyPP h
+  -- dynamicLogWithPP $ oxyPP h
   updatePointer ((1/20), (1/20)) (1, 1)
 
 oxyPP :: Handle -> PP
@@ -231,8 +229,8 @@ myFocusFollowsMouse = True
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  pipe <- spawnPipe "xmobar"
-  xmonad $ withUrgencyHook NoUrgencyHook $ defaults pipe
+  -- pipe <- spawnPipe "xmobar"
+  xmonad $ withUrgencyHook NoUrgencyHook $ defaults undefined
 
 defaults pipe = defaultConfig {
       -- simple stuff
