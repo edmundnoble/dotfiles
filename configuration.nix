@@ -39,10 +39,10 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    wget neovim git sbt zsh xclip
+    wget vim neovim git sbt zsh xclip ag
     alacritty
     linuxPackages.virtualboxGuestAdditions
-    vscode qutebrowser discord
+    vscode qutebrowser discord lastpass-cli
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
