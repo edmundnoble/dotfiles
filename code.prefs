@@ -1,19 +1,25 @@
 {
-"editor.tabCompletion": false,
-"extensions.ignoreRecommendations": false,
-"editor.autoIndent": false,
-"editor.tabSize": 2,
-"files.trimTrailingWhitespace": true,
-"diffEditor.ignoreTrimWhitespace": true,
-"workbench.editor.enablePreview": false,
-"workbench.editor.openPositioning": "first",
-"workbench.startupEditor": "none",
-"window.zoomLevel": 1,
-"vim.enableNeovim": true,
-"vim.handleKeys": {
-    "<C-d>": true,
-    "<C-w>": false
-},
-"workbench.statusBar.feedback.visible": false
+    "editor.tabCompletion": false,
+    "extensions.ignoreRecommendations": false,
+    "editor.autoIndent": false,
+    "editor.tabSize": 2,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontSize": 16,
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 20,
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.openPositioning": "first",
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 0,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-w>": false,
+        "<C-c>": false,
+        "<C-v>": false,
+        "<C-a>": false
+    },
+    "workbench.statusBar.feedback.visible": false
 }
 

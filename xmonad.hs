@@ -229,7 +229,7 @@ myFocusFollowsMouse = True
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  -- pipe <- spawnPipe "xmobar"
+  pipe <- spawnPipe "/nix/store/2cfh7wlq9s28dc1k4mglvaz8nfrja1az-xmobar-0.25/bin/xmobar"
   xmonad $ withUrgencyHook NoUrgencyHook $ defaults undefined
 
 defaults pipe = defaultConfig {
