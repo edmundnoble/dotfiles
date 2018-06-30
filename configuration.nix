@@ -1,7 +1,6 @@
-# Edit this configuration file to define what should be installed on
+#Denver this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 
 
 { config, pkgs, ... }:
@@ -13,18 +12,17 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.timeout = 0;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  powerManagement.cpuFreqGovernor = "performance";
 
-  networking.hostName = "nope-2"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  boot.loader.timeout = 0;
+  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.systemd-boot.enable = true; # or "nodev" for efi only
+
+  networking.hostName = "nope-3"; # Define your hostname.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.connman.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  time.timeZone = "America/Toronto";
 
   # Select internationalisation properties.
   # i18n = {
@@ -34,22 +32,44 @@
   # };
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
-
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    wget vim neovim git sbt zsh xclip ag
-    alacritty
-    linuxPackages.virtualboxGuestAdditions
-    vscode qutebrowser discord lastpass-cli
+    # libraries
+    libffi
+    # shell
+    wget vim neovim git sbt scala zsh xclip ag iotop ntp socat cloc acpi light jekyll python3 python ruby 
+    gcc stdenv gnumake automake autoconf file cargo binutils mono unzip SDL2 cabal-install ghc 
+    hlint travis jq cowsay ncurses green-pdfviewer ghostscript gdb nodejs visualvm graphviz
+    # term emulator
+    rxvt_unicode
+    # nonfree/GUI
+    vscode firefox discord lastpass-cli scrot connman-gtk p7zip mupdf xpdf obs-studio
+    renpy
+  ];
+
+  virtualisation.virtualbox.host.enable = true;
+
+  fonts.fonts = with pkgs; [
+    font-droid
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts
+    dina-font
+    proggyfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.bash.enableCompletion = true;
+  programs.java.enable = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  # ipfs
 
   # List services that you want to enable:
 
@@ -63,7 +83,9 @@
   # networking.firewall.enable = false;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
+
+  services.apcupsd.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -71,13 +93,30 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.synaptics.enable = true;
   services.xserver.layout = "us";
 
   services.xserver.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
+    extraPackages = haskellPackages: with haskellPackages; [ 
+      haskellPackages.xmobar 
+    ];
   };
+
   services.xserver.windowManager.default = "xmonad";
+  services.xserver.displayManager.sessionCommands = with pkgs; lib.mkAfter ''
+    syndaemon -i 0.4 -R -d
+    synclient PalmDetect=1
+    synclient PalmMinWidth=1
+    synclient PalmMinZ=20
+    synclient VertEdgeScroll=0
+    synclient HorizEdgeScroll=0
+    setxkbmap -option ctrl:nocaps
+    # exec ${haskellPackages.xmonad}/bin/xmonad
+  '';
+
+  services.xserver.desktopManager.xterm.enable = false;
 
   programs.ssh.startAgent = true;
 
