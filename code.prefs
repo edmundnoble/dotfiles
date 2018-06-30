@@ -1,25 +1,30 @@
 {
     "editor.tabCompletion": false,
     "extensions.ignoreRecommendations": false,
+    "editor.autoClosingBrackets": false,
     "editor.autoIndent": false,
+    "editor.cursorBlinking": "solid",
     "editor.tabSize": 2,
     "editor.fontFamily": "Fira Code",
     "editor.fontSize": 16,
     "editor.fontLigatures": true,
     "editor.lineHeight": 20,
     "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
     "diffEditor.ignoreTrimWhitespace": true,
     "workbench.editor.enablePreview": false,
     "workbench.editor.openPositioning": "first",
     "workbench.startupEditor": "none",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "vim.handleKeys": {
         "<C-d>": true,
         "<C-w>": false,
         "<C-c>": false,
         "<C-v>": false,
-        "<C-a>": false
+        "<C-a>": false,
+        "<C-h>": false
     },
-    "workbench.statusBar.feedback.visible": false
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.colorTheme": "Kimbie Dark"
 }
 
