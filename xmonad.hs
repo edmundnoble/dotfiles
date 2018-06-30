@@ -28,9 +28,9 @@ import XMonad.Util.EZConfig
 import XMonad.Actions.Warp
 import Data.Ratio
 
-myTerminal      = "alacritty"
+myTerminal      = "urxvt"
 myScreenLock    = "/usr/bin/gnome-screensaver-command -l"
-myBrowser       = "qutebrowser"
+myBrowser       = "firefox"
 myBorderWidth   = 1
 myModMask       = mod1Mask
 myWorkspaces    = ["α", "β" ,"γ", "δ", "ε", "ζ", "η", "θ", "ι"]
@@ -118,11 +118,11 @@ oxyXPConfig = defaultXPConfig { font              = "xft:Consolas-12"
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modMask, button1), (\w -> focus w >> mouseMoveWindow w))
+    [ ((modMask, button1), focus)
     -- mod-button2, Raise the window to the top of the stack
-    , ((modMask, button2), (\w -> focus w >> windows W.swapMaster))
+    , ((modMask, button2), focus)
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modMask, button3), (\w -> focus w >> mouseResizeWindow w))
+    , ((modMask, button3), focus)
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     -- cycle focus
     , ((modMask, button4), (\_ -> windows W.focusUp))
@@ -136,6 +136,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
       prevNonEmptyWS = \_ -> moveTo Prev (WSIs (liftM (not .) isVisible))
 
 myLayout = avoidStrutsOn[U] $ tabs
+-- myLayout = avoidStruts $ tabs
            ||| tiled
            ||| Mirror tiled
            ||| magnify Grid
@@ -151,7 +152,7 @@ myLayout = avoidStrutsOn[U] $ tabs
      -- tabbed layout
      tabs = tabbed shrinkText oxyDarkTheme
      -- magnification in grid
-     magnify = magnifiercz (14%10)
+     magnify = magnifiercz (15 % 10)
 
 -- Configuration for Tabbed
 oxyTheme :: Theme
@@ -184,13 +185,12 @@ myManageHook = composeAll
  [ resource  =? "desktop_window"    --> doIgnore
  , className =? "ClockScreenlet.py" --> doIgnore
  , className =? "Deluge"            --> doF (W.shift "9")
- , title     =? "roottail"          --> doIgnore ]
-    <+> manageDocks
+ , title     =? "roottail"          --> doIgnore ] <+> manageDocks
 
 -- Status bars and logging
 myLogHook h = do
   ewmhDesktopsLogHook
-  -- dynamicLogWithPP $ oxyPP h
+  dynamicLogWithPP $ xmobarPP { ppOutput = hPutStrLn h }
   updatePointer ((1/20), (1/20)) (1, 1)
 
 oxyPP :: Handle -> PP
@@ -230,7 +230,7 @@ myFocusFollowsMouse = True
 --
 main = do
   pipe <- spawnPipe "/nix/store/2cfh7wlq9s28dc1k4mglvaz8nfrja1az-xmobar-0.25/bin/xmobar"
-  xmonad $ withUrgencyHook NoUrgencyHook $ defaults undefined
+  xmonad $ withUrgencyHook NoUrgencyHook $ defaults pipe
 
 defaults pipe = defaultConfig {
       -- simple stuff
