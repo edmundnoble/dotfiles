@@ -12,8 +12,6 @@
       ./hardware-configuration.nix
     ];
 
-  powerManagement.cpuFreqGovernor = "performance";
-
   boot.loader.timeout = 0;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.systemd-boot.enable = true; # or "nodev" for efi only
@@ -45,7 +43,6 @@
     rxvt_unicode
     # nonfree/GUI
     vscode firefox discord lastpass-cli scrot connman-gtk p7zip mupdf xpdf obs-studio
-    renpy
   ];
 
   virtualisation.virtualbox.host.enable = true;
@@ -61,6 +58,8 @@
     mplus-outline-fonts
     dina-font
     proggyfonts
+    iosevka
+    fixedsys-excelsior
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
