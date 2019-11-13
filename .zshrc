@@ -18,7 +18,9 @@ export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig"
 
 export TERM='xterm-256color'
 
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.conscript/bin:$HOME/.cabal/bin"
+#export LD_LIBRARY_PATH="/nix/store/qfvf8qzyjkalv0zrh3y0xkl8136ysmgp-system-path/lib/"
+
+export PATH="$HOME/.cabal/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.conscript/bin:$HOME/.npm-packages/bin"
 
 # Customize to your needs...
 alias g="git"
@@ -26,6 +28,7 @@ alias gw="git worktree"
 alias pushu="git push upstream HEAD"
 alias v="nvim"
 alias zed="vim ~/.zshrc"
+alias nsh="nix-shell --command zsh"
 alias nre="sudo nixos-rebuild switch"
 alias ned="sudo nvim /etc/nixos/configuration.nix"
 alias gc="git commit"
@@ -64,6 +67,10 @@ alias gf="git fetch"
 alias gfo="git fetch origin"
 alias vim="nvim"
 alias nvi="nvim ~/.config/nvim/init.vim"
+alias cb="cabal v2-build -O0"
+alias cr="cabal v2-repl"
+alias ct="cabal v2-run -O0 test:tests"
+alias c="cabal"
 export SBT_OPTS="-Xmx8G -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2G -Xss2M"
 
 # added by travis gem
